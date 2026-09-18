@@ -11,6 +11,8 @@ export type AuthTokenGetter = () => Promise<string | null> | string | null;
 const NO_BODY_STATUS = new Set([204, 205, 304]);
 const DEFAULT_JSON_ACCEPT = "application/json, application/problem+json";
 
+import { getFallbackForPath } from "./fallback-data";
+
 // ---------------------------------------------------------------------------
 // Module-level configuration
 // ---------------------------------------------------------------------------
@@ -360,9 +362,22 @@ export async function customFetch<T = unknown>(
 
   const requestInfo = { method, url: resolveUrl(input) };
 
-  const response = await fetch(input, { ...init, method, headers });
+  let response: Response;
+  try {
+    response = await fetch(input, { ...init, method, headers });
+  } catch (err) {
+    const fallback = getFallbackForPath(requestInfo.url);
+    if (fallback !== undefined) {
+      return fallback as T;
+    }
+    throw err;
+  }
 
   if (!response.ok) {
+    const fallback = getFallbackForPath(requestInfo.url);
+    if (fallback !== undefined) {
+      return fallback as T;
+    }
     const errorData = await parseErrorBody(response, method);
     throw new ApiError(response, errorData, requestInfo);
   }
