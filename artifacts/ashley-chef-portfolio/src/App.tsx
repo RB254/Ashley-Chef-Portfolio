@@ -201,15 +201,15 @@ function About({ profile, languages, interests }: { profile?: any; languages?: a
             </div>
             <div>
               <span className="eyebrow">Languages</span>
-              <DataState loading={!languages} error={false} empty={!languages?.length}>
-                <p className="mt-2 text-sm text-[var(--deep)]">{languages?.map((item) => `${item.language} (${item.proficiency})`).join(' · ')}</p>
+              <DataState loading={!languages} error={false} empty={!Array.isArray(languages) || !languages.length}>
+                <p className="mt-2 text-sm text-[var(--deep)]">{Array.isArray(languages) ? languages.map((item) => `${item.language} (${item.proficiency})`).join(' · ') : ''}</p>
               </DataState>
             </div>
           </div>
           <div className="mt-10 border-t border-[var(--line)] pt-7">
             <span className="eyebrow">Interests</span>
             <div className="mt-4 flex flex-wrap gap-2">
-              {interests?.length ? interests.map((interest) => <span key={interest.id} className="border border-[var(--line)] px-3 py-2 text-xs text-[var(--deep)]" data-testid={`tag-interest-${interest.id}`}>{interest.name}</span>) : <span className="text-sm text-[var(--muted-foreground)]">No entries have been added here yet.</span>}
+              {Array.isArray(interests) && interests.length ? interests.map((interest) => <span key={interest.id} className="border border-[var(--line)] px-3 py-2 text-xs text-[var(--deep)]" data-testid={`tag-interest-${interest.id}`}>{interest.name}</span>) : <span className="text-sm text-[var(--muted-foreground)]">No entries have been added here yet.</span>}
             </div>
           </div>
         </div>
@@ -219,13 +219,14 @@ function About({ profile, languages, interests }: { profile?: any; languages?: a
 }
 
 function Experience({ data, loading, error }: { data?: any[]; loading: boolean; error: boolean }) {
+  const list = Array.isArray(data) ? data : [];
   return (
     <section id="experience" className="bg-[var(--paper)] px-5 py-24 md:px-10 md:py-36">
       <div className="mx-auto max-w-[1440px]">
         <SectionHeading index="02 / Experience" title="Practice, in sequence." intro="Roles and responsibilities from Ashley's professional experience." />
-        <DataState loading={loading} error={error} empty={!data?.length}>
+        <DataState loading={loading} error={error} empty={!list.length}>
           <div className="divide-y divide-[var(--line)] border-y border-[var(--line)]">
-            {data?.map((item, index) => (
+            {list.map((item, index) => (
               <article key={item.id} className="group grid gap-5 py-8 md:grid-cols-[100px_1fr_1.2fr] md:gap-10 md:py-10" data-testid={`card-experience-${item.id}`}>
                 <span className="font-mono text-xs text-[var(--clay)]">0{index + 1}</span>
                 <div>
@@ -234,7 +235,7 @@ function Experience({ data, loading, error }: { data?: any[]; loading: boolean; 
                 </div>
                 <div className="md:flex md:items-start md:justify-between md:gap-8">
                   <ul className="space-y-2 text-sm leading-6 text-[var(--muted-foreground)]">
-                    {item.responsibilities?.map((responsibility: string) => <li key={responsibility} className="flex gap-3"><span className="mt-3 h-1 w-1 shrink-0 rounded-full bg-[var(--saffron)]" />{responsibility}</li>)}
+                    {Array.isArray(item.responsibilities) && item.responsibilities.map((responsibility: string) => <li key={responsibility} className="flex gap-3"><span className="mt-3 h-1 w-1 shrink-0 rounded-full bg-[var(--saffron)]" />{responsibility}</li>)}
                   </ul>
                   <span className="mt-5 block shrink-0 font-mono text-[.65rem] uppercase tracking-[.12em] text-[var(--deep)] md:mt-0">{item.dates}</span>
                 </div>
@@ -248,17 +249,18 @@ function Experience({ data, loading, error }: { data?: any[]; loading: boolean; 
 }
 
 function Skills({ skills, loading, error }: { skills?: any[]; loading: boolean; error: boolean }) {
+  const list = Array.isArray(skills) ? skills : [];
   return (
     <section id="skills" className="mx-auto max-w-[1440px] px-5 py-24 md:px-10 md:py-36">
       <SectionHeading index="03 / Skills" title="The station, understood." intro="Culinary skill categories presented directly from Ashley's profile." />
-      <DataState loading={loading} error={error} empty={!skills?.length}>
+      <DataState loading={loading} error={error} empty={!list.length}>
         <div className="grid gap-px bg-[var(--line)] md:grid-cols-2 lg:grid-cols-3">
-          {skills?.map((item, index) => (
+          {list.map((item, index) => (
             <article key={item.id} className="bg-[var(--cream)] p-7 md:min-h-56 md:p-9" data-testid={`card-skill-${item.id}`}>
               <span className="font-mono text-xs text-[var(--clay)]">0{index + 1}</span>
               <h3 className="mt-8 font-display text-2xl text-[var(--deep)]">{item.name}</h3>
               <div className="mt-5 space-y-2">
-                {item.skills?.map((skill: string) => <p key={skill} className="text-sm text-[var(--muted-foreground)]">{skill}</p>)}
+                {Array.isArray(item.skills) && item.skills.map((skill: string) => <p key={skill} className="text-sm text-[var(--muted-foreground)]">{skill}</p>)}
               </div>
             </article>
           ))}
@@ -299,8 +301,11 @@ function Work({ featured, gallery, loading, error }: { featured?: any[]; gallery
   const [selected, setSelected] = useState<number | null>(null);
   const [filter, setFilter] = useState('All');
   const items = useMemo(() => {
-    const gallerySource = gallery?.length ? gallery : localGalleryItems;
-    const source = featured?.length ? [...featured, ...gallerySource.filter((item) => !featured.some((feature) => feature.id === item.id))] : gallerySource;
+    const gallerySource = Array.isArray(gallery) && gallery.length ? gallery : localGalleryItems;
+    const featuredList = Array.isArray(featured) ? featured : [];
+    const source = featuredList.length
+      ? [...featuredList, ...gallerySource.filter((item) => !featuredList.some((feature) => feature.id === item.id))]
+      : gallerySource;
     return source;
   }, [featured, gallery]);
   const categories = ['All', ...Array.from(new Set(items.map((item) => item.category).filter(Boolean)))];
@@ -334,13 +339,14 @@ function Work({ featured, gallery, loading, error }: { featured?: any[]; gallery
 }
 
 function Education({ education, loading, error }: { education?: any[]; loading: boolean; error: boolean }) {
+  const list = Array.isArray(education) ? education : [];
   return (
     <section id="education" className="mx-auto max-w-[1440px] px-5 py-24 md:px-10 md:py-36">
       <div className="grid gap-12 md:grid-cols-[.7fr_1.3fr]">
         <SectionHeading index="05 / Education" title="Built on learning." />
-        <DataState loading={loading} error={error} empty={!education?.length}>
+        <DataState loading={loading} error={error} empty={!list.length}>
           <div className="space-y-0 border-t border-[var(--line)]">
-            {education?.map((item) => <article key={item.id} className="border-b border-[var(--line)] py-7" data-testid={`card-education-${item.id}`}>
+            {list.map((item) => <article key={item.id} className="border-b border-[var(--line)] py-7" data-testid={`card-education-${item.id}`}>
               <div className="flex flex-wrap justify-between gap-3"><span className="font-display text-2xl text-[var(--deep)]">{item.qualification}</span><span className="font-mono text-[.63rem] uppercase tracking-[.12em] text-[var(--clay)]">{item.period}</span></div>
               <p className="mt-3 text-sm text-[var(--muted-foreground)]">{item.institution}{item.field ? ` · ${item.field}` : ''}</p>
             </article>)}
@@ -352,13 +358,14 @@ function Education({ education, loading, error }: { education?: any[]; loading: 
 }
 
 function References({ references, loading, error }: { references?: any[]; loading: boolean; error: boolean }) {
+  const list = Array.isArray(references) ? references : [];
   return (
     <section id="references" className="bg-[var(--saffron)] px-5 py-24 md:px-10 md:py-32">
       <div className="mx-auto max-w-[1440px]">
         <SectionHeading index="06 / References" title="People who know the work." intro="Professional references available for hospitality opportunities." />
-        <DataState loading={loading} error={error} empty={!references?.length}>
+        <DataState loading={loading} error={error} empty={!list.length}>
           <div className="grid gap-8 md:grid-cols-2">
-            {references?.map((item) => <article key={item.id} className="border-t border-[rgba(21,33,29,.3)] pt-5" data-testid={`card-reference-${item.id}`}>
+            {list.map((item) => <article key={item.id} className="border-t border-[rgba(21,33,29,.3)] pt-5" data-testid={`card-reference-${item.id}`}>
               <h3 className="font-display text-2xl text-[var(--deep)]">{item.name}</h3>
               <p className="mt-2 text-sm text-[var(--deep)]">{item.position}{item.company ? ` · ${item.company}` : ''}</p>
               <div className="mt-6 flex flex-wrap gap-4 text-xs text-[var(--deep)]"><a href={`tel:${item.phone}`} className="inline-flex items-center gap-2 hover:underline" data-testid={`link-reference-phone-${item.id}`}><Phone size={13} />{item.phone}</a><a href={`mailto:${item.email}`} className="inline-flex items-center gap-2 hover:underline" data-testid={`link-reference-email-${item.id}`}><Mail size={13} />{item.email}</a></div>

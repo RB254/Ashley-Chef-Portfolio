@@ -361,20 +361,36 @@ export async function customFetch<T = unknown>(
   }
 
   const requestInfo = { method, url: resolveUrl(input) };
+  const fallback = getFallbackForPath(requestInfo.url);
+
+  // If fallback is available and no custom API base URL is specified:
+  // On static hosts (e.g. Vercel) where no backend server exists, return the authentic
+  // fallback data directly, avoiding redundant network trips and SPA HTML rewrites.
+  if (fallback !== undefined && !_baseUrl) {
+    const isLocalhost =
+      typeof window !== "undefined" &&
+      (window.location.hostname === "localhost" ||
+        window.location.hostname === "127.0.0.1");
+
+    if (!isLocalhost) {
+      return fallback as T;
+    }
+  }
 
   let response: Response;
   try {
     response = await fetch(input, { ...init, method, headers });
   } catch (err) {
-    const fallback = getFallbackForPath(requestInfo.url);
     if (fallback !== undefined) {
       return fallback as T;
     }
     throw err;
   }
 
-  if (!response.ok) {
-    const fallback = getFallbackForPath(requestInfo.url);
+  const contentType = response.headers.get("content-type") || "";
+  const isHtml = contentType.toLowerCase().includes("text/html");
+
+  if (!response.ok || isHtml) {
     if (fallback !== undefined) {
       return fallback as T;
     }
@@ -382,5 +398,22 @@ export async function customFetch<T = unknown>(
     throw new ApiError(response, errorData, requestInfo);
   }
 
-  return (await parseSuccessBody(response, responseType, requestInfo)) as T;
+  try {
+    const body = await parseSuccessBody(response, responseType, requestInfo);
+    if (
+      typeof body === "string" &&
+      (body.trim().startsWith("<!DOCTYPE") || body.trim().startsWith("<html"))
+    ) {
+      if (fallback !== undefined) {
+        return fallback as T;
+      }
+    }
+    return body as T;
+  } catch (err) {
+    if (fallback !== undefined) {
+      return fallback as T;
+    }
+    throw err;
+  }
 }
+
