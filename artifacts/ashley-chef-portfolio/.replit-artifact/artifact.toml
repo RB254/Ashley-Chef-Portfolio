@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Ashley Chef Portfolio"
+description = "A premium professional portfolio for Kenyan pastry and bakery professional Ashley Amani Wambura, presenting her culinary experience, skills, education, photography, references, CV and contact opportunities to hospitality employers."
+version = "1.0.0"
+id = "artifacts/ashley-chef-portfolio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23622
+
+[services.development]
+run = "pnpm --filter @workspace/ashley-chef-portfolio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/ashley-chef-portfolio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/ashley-chef-portfolio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23622"
+BASE_PATH = "/"

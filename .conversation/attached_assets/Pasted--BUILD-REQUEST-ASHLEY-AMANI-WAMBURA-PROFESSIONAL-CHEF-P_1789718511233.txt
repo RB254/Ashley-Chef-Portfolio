@@ -1,0 +1,1342 @@
+# BUILD REQUEST: ASHLEY AMANI WAMBURA — PROFESSIONAL CHEF PORTFOLIO
+
+Build a production-ready professional portfolio website for **Ashley Amani Wambura**, a Kenyan pastry and bakery professional.
+
+The purpose of the website is to help Ashley present her professional experience, culinary skills, education, work history and food portfolio to potential employers in hotels, restaurants, bakeries, pastry kitchens, catering companies and hospitality organizations.
+
+This is a professional chef portfolio — NOT a restaurant ordering website and NOT a developer portfolio.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 1. MANDATORY TECHNOLOGY STACK
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+IMPORTANT: Do NOT substitute the technology stack.
+
+Use exactly:
+
+### BACKEND
+
+* PHP
+* Laravel
+* Laravel REST API architecture
+* Laravel migrations
+* Laravel Eloquent ORM
+* Laravel validation
+* Laravel API Resources where appropriate
+* Laravel `.env` configuration
+
+### FRONTEND
+
+* Vue.js
+* Vue 3
+* Composition API
+* Vue Router
+* Axios for API communication
+
+### DATABASE
+
+* MySQL
+
+### DEVELOPMENT
+
+* Git
+* GitHub-compatible project structure
+* Environment variables
+* RESTful API communication between Vue and Laravel
+
+Do NOT use:
+
+* React
+* Next.js
+* Node/Express as the backend
+* MongoDB
+* Firebase as the primary backend
+* Supabase as the primary backend
+* Static JSON as the permanent data source
+
+The objective is also educational: I want to understand a real **Laravel → API → Vue → MySQL** application architecture similar to another Laravel/Vue/MySQL system I am currently learning.
+
+Therefore, write the project using clean, understandable architecture rather than unnecessary abstractions.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 2. REQUIRED ARCHITECTURE
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Use a separated architecture:
+
+ASHLEY-CHEF-PORTFOLIO/
+
+├── backend/
+│   └── Laravel application
+│
+└── frontend/
+└── Vue 3 application
+
+The architecture should work approximately like:
+
+```
+            USER
+              │
+              ▼
+        Vue Frontend
+              │
+          Axios
+              │
+              ▼
+      Laravel REST API
+              │
+          Eloquent
+              │
+              ▼
+          MySQL
+```
+
+The Vue frontend must NOT directly connect to MySQL.
+
+The frontend communicates with Laravel through API endpoints.
+
+Laravel handles:
+
+* Business logic
+* Validation
+* Database operations
+* Authentication if required
+* API responses
+* File/image metadata
+* Contact form processing
+
+MySQL stores the structured portfolio information.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 3. PROJECT GOAL
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create a premium chef portfolio that answers a recruiter's questions quickly:
+
+WHO IS SHE?
+→ Hero + professional identity
+
+WHAT DOES SHE DO?
+→ Pastry & Bakery Professional
+
+WHERE HAS SHE WORKED?
+→ Experience timeline
+
+WHAT CAN SHE DO?
+→ Culinary skills
+
+WHAT HAS SHE CREATED?
+→ Gallery
+
+WHERE DID SHE TRAIN?
+→ Education
+
+HOW CAN I CONTACT HER?
+→ Contact section
+
+CAN I DOWNLOAD HER CV?
+→ CV download
+
+CAN HER EXPERIENCE BE VERIFIED?
+→ References
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 4. DESIGN DIRECTION
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Use a sophisticated culinary editorial aesthetic.
+
+Visual inspiration:
+
+* Luxury hotel pastry kitchen
+* Fine dining
+* Premium bakery
+* Professional chef profile
+* Modern culinary magazine
+* Elegant hospitality branding
+
+Use:
+
+* Warm cream / ivory backgrounds
+* Deep charcoal typography
+* Chocolate/cocoa tones
+* Muted copper/gold accents
+* Large photography
+* Generous whitespace
+* Elegant serif headings
+* Modern sans-serif body typography
+
+The site should feel premium but not flashy.
+
+Avoid:
+
+* Generic portfolio templates
+* Cartoon food graphics
+* Developer dashboard aesthetics
+* Excessive gradients
+* Excessive animations
+* Cheap-looking UI
+* Stock-photo-heavy design
+
+Ashley’s actual uploaded photographs should be the visual centerpiece.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 5. FRONTEND PAGES / ROUTES
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create Vue routes:
+
+/
+/about
+/experience
+/skills
+/gallery
+/education
+/references
+/contact
+
+However, if a single-page scrolling experience produces a better professional portfolio, use reusable Vue components and anchor navigation while keeping the architecture clean.
+
+Recommended components:
+
+components/
+├── Navbar.vue
+├── HeroSection.vue
+├── AboutSection.vue
+├── ExperienceSection.vue
+├── SkillsSection.vue
+├── CulinaryProcess.vue
+├── GallerySection.vue
+├── FeaturedWork.vue
+├── EducationSection.vue
+├── LanguagesSection.vue
+├── InterestsSection.vue
+├── ReferencesSection.vue
+├── ContactSection.vue
+├── Footer.vue
+└── ImageLightbox.vue
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 6. HERO
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Hero heading:
+
+ASHLEY AMANI WAMBURA
+
+Professional title:
+
+PASTRY & BAKERY PROFESSIONAL
+
+Supporting statement:
+
+"Passionate about pastry, bakery, precision and creating memorable culinary experiences."
+
+Use Ashley's strongest professional photograph.
+
+CTA buttons:
+
+VIEW MY EXPERIENCE
+
+CONTACT ME
+
+Add subtle indicators:
+
+Pastry & Bakery
+Hospitality
+Food Safety
+Kitchen Operations
+
+Do not exaggerate Ashley's professional level.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 7. ABOUT
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Use the supplied CV as the factual source.
+
+Ashley is described as:
+
+A hardworking, self-driven and passionate Pastry and Bakery graduate with practical experience gained during her internship at Hemingways Nairobi.
+
+Documented strengths include:
+
+* Pastry production
+* Food safety
+* High hygiene standards
+* Working under pressure
+* Visual attention to detail
+* Coordinating preparation schedules
+* Timely dish execution
+* Compliance with health and sanitation standards
+
+Do not invent achievements.
+
+Create an elegant editorial section around:
+
+CRAFT
+PRECISION
+DISCIPLINE
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 8. EXPERIENCE
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create a professional visual career timeline.
+
+### EXPERIENCE 01
+
+HEMINGWAYS NAIROBI
+
+Position:
+Pastry Cook
+
+Dates:
+12 January – 12 April
+
+Responsibilities:
+
+* Measured ingredients precisely by weight according to standardized formulas.
+* Baked doughs, batters, tarts, cookies, pies, cakes and artisanal breads.
+* Prepared fillings, icings, glazes, custards, mousses and sauces.
+* Operated commercial kitchen equipment safely, including industrial mixers, dough sheeters and deck ovens.
+
+### EXPERIENCE 02
+
+NOVOTEL NAIROBI WESTLANDS
+
+Position:
+Pastry Cook
+
+Dates:
+1 July – 10 August
+
+Responsibilities:
+
+* Decorated cakes and pastries using piping, glazing and frosting techniques.
+* Plated individual desserts during live service.
+* Maintained visual consistency.
+* Prepared garnishes, coulis and service tools.
+* Organized daily mise en place.
+* Prepared nuts, chocolate and fresh fruits.
+* Used labeling, dating and FIFO stock rotation.
+* Maintained sanitation and health requirements.
+
+IMPORTANT:
+
+Do NOT invent missing years.
+
+Create an editable placeholder for:
+
+KEMPINSKI
+
+Position:
+[To be added]
+
+Dates:
+[To be added]
+
+Responsibilities:
+[To be added]
+
+Only display the Kempinski experience once real information has been entered.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 9. CULINARY SKILLS
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create categories.
+
+### PASTRY & BAKERY
+
+* Doughs
+* Batters
+* Tarts
+* Cookies
+* Pies
+* Cakes
+* Artisanal breads
+* Fillings
+* Icings
+* Glazes
+* Custards
+* Mousses
+* Sauces
+
+### DECORATION & PRESENTATION
+
+* Cake decoration
+* Piping
+* Glazing
+* Frosting
+* Dessert plating
+* Visual presentation
+
+### KITCHEN OPERATIONS
+
+* Mise en place
+* Kitchen organization
+* Ingredient preparation
+* FIFO stock rotation
+* Commercial kitchen equipment
+
+### FOOD SAFETY & HYGIENE
+
+* Food hygiene
+* Sanitation
+* Safe equipment operation
+* Ingredient freshness monitoring
+* Health-code compliance
+
+Do NOT use fake percentage skill bars.
+
+Use elegant cards/tags.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 10. CULINARY GALLERY
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create a premium responsive masonry gallery.
+
+Use Ashley's uploaded photographs.
+
+Possible categories:
+
+* Pastry
+* Bakery
+* Cakes
+* Desserts
+* Kitchen
+* Culinary Journey
+
+Create a fullscreen lightbox.
+
+Features:
+
+* Next
+* Previous
+* Close
+* Keyboard navigation
+* Mobile swipe support
+* Responsive image sizing
+* Lazy loading
+
+Do not invent image descriptions.
+
+Where possible, store image metadata in MySQL.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 11. SELECTED CULINARY WORK
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create:
+
+SELECTED CULINARY WORK
+
+Show 3–6 strongest photographs.
+
+Each item should support:
+
+* Image
+* Category
+* Title
+* Description
+
+But if the actual dish name is unknown, use:
+
+Pastry
+Dessert
+Baked Creation
+
+Do not fabricate dish names.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 12. FROM PREP TO PLATE
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create a visual storytelling section.
+
+01 — PREPARATION
+
+Mise en place, ingredient preparation and organization.
+
+02 — CRAFT
+
+Pastry production, baking, fillings, icings and finishing.
+
+03 — PRESENTATION
+
+Plating, decoration and visual consistency.
+
+04 — SERVICE
+
+Working efficiently in a professional kitchen.
+
+Use real uploaded images.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 13. EDUCATION
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create an education timeline.
+
+### KIBONDENI COLLEGE
+
+2025
+
+Certificate in Food and Beverage Production, Service, Housekeeping and Laundry
+
+### OSHWAL COLLEGE
+
+2022–2024
+
+Pearson BTEC
+Diploma in Information Technology
+
+### KESTREL MANOR HIGH SCHOOL
+
+2018–2021
+
+International General Certificate of Secondary Education (IGCSE)
+
+### GRACE HARVEST ACADEMY
+
+2006–2017
+
+Kenya Certificate of Primary Education (KCPE)
+
+Give Kibondeni the strongest visual emphasis because of the culinary relevance.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 14. LANGUAGES
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+English
+Fluent — Spoken & Written
+
+Swahili
+Fluent — Spoken & Written
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 15. INTERESTS
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+BEYOND THE KITCHEN
+
+* Travelling
+* Adventure
+* Reading
+
+Keep this section visually secondary.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 16. REFERENCES
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create a professional references section.
+
+Reference 1:
+
+Chef Readon Namutenda
+Pastry Chef — Novotel
+Phone: 0706635462
+Email: [tonnymisango@gmail.com](mailto:tonnymisango@gmail.com)
+
+Reference 2:
+
+Chef Oscar Mfogo
+Executive Chef
+Phone: 0725135234
+Email: mfogooscar@gmail,com
+
+IMPORTANT:
+
+Allow references to be enabled/disabled through the database.
+
+Do not expose references in the main navigation.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 17. CONTACT
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create:
+
+LET'S CREATE SOMETHING MEMORABLE.
+
+Text:
+
+"For employment opportunities, professional collaborations, or culinary opportunities, get in touch with Ashley."
+
+Phone:
+0110768711
+
+Email:
+[amaniashley107@gmail.com](mailto:amaniashley107@gmail.com)
+
+Buttons:
+
+CALL ASHLEY
+EMAIL ASHLEY
+
+Contact form:
+
+Name
+Email
+Company / Organization
+Opportunity
+Message
+
+SEND INQUIRY
+
+The form must submit to Laravel.
+
+Do NOT create a fake frontend-only success message.
+
+Implement:
+
+Vue Form
+↓
+Axios POST
+↓
+Laravel API
+↓
+Validation
+↓
+MySQL
+↓
+Success/Error JSON response
+↓
+Vue UI
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 18. DATABASE DESIGN
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Use MySQL.
+
+Create Laravel migrations and Eloquent models.
+
+Suggested tables:
+
+users
+experiences
+education
+skills
+skill_categories
+gallery_items
+references
+languages
+interests
+contact_messages
+site_settings
+
+Possible structure:
+
+experiences:
+
+* id
+* company
+* position
+* start_date
+* end_date
+* description
+* is_visible
+* sort_order
+* created_at
+* updated_at
+
+experience_responsibilities:
+
+* id
+* experience_id
+* responsibility
+* sort_order
+
+education:
+
+* id
+* institution
+* qualification
+* field
+* start_date
+* end_date
+* description
+* is_visible
+* sort_order
+
+skill_categories:
+
+* id
+* name
+* sort_order
+
+skills:
+
+* id
+* skill_category_id
+* name
+* sort_order
+
+gallery_items:
+
+* id
+* title
+* category
+* description
+* image_path
+* featured
+* is_visible
+* sort_order
+* created_at
+* updated_at
+
+references:
+
+* id
+* name
+* position
+* company
+* phone
+* email
+* is_visible
+* sort_order
+
+languages:
+
+* id
+* language
+* proficiency
+* is_visible
+
+interests:
+
+* id
+* name
+* is_visible
+
+contact_messages:
+
+* id
+* name
+* email
+* company
+* opportunity
+* message
+* status
+* created_at
+* updated_at
+
+site_settings:
+
+* id
+* setting_key
+* setting_value
+
+Use appropriate foreign keys and indexes.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 19. LARAVEL API
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create clean REST endpoints.
+
+Example:
+
+GET /api/profile
+
+GET /api/experiences
+
+GET /api/experiences/{id}
+
+GET /api/education
+
+GET /api/skills
+
+GET /api/gallery
+
+GET /api/gallery/{id}
+
+GET /api/references
+
+GET /api/languages
+
+GET /api/interests
+
+POST /api/contact
+
+The public Vue website should load portfolio data through these APIs.
+
+Use Laravel API Resources where appropriate.
+
+Return consistent JSON responses.
+
+Example:
+
+{
+"success": true,
+"data": [...]
+}
+
+For errors:
+
+{
+"success": false,
+"message": "Validation failed.",
+"errors": {}
+}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 20. ADMIN FUNCTIONALITY
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Because this project is being built using Laravel + Vue + MySQL, create a simple admin system for future maintenance.
+
+Admin should be able to manage:
+
+* Experiences
+* Education
+* Skills
+* Gallery
+* References
+* Languages
+* Interests
+* Site settings
+* Contact messages
+
+Admin routes should be protected.
+
+Suggested:
+
+/admin/login
+/admin/dashboard
+/admin/experiences
+/admin/education
+/admin/skills
+/admin/gallery
+/admin/references
+/admin/messages
+
+Use Laravel authentication.
+
+Do not expose the admin interface to public visitors.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 21. IMAGE / FILE HANDLING
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Use Laravel storage for uploaded images.
+
+Do not store large image binaries directly in MySQL.
+
+Store the image path/filename in MySQL.
+
+Example flow:
+
+Admin uploads image
+↓
+Laravel validates image
+↓
+Laravel stores image
+↓
+Database stores image path
+↓
+API returns image URL
+↓
+Vue displays image
+
+Support:
+
+JPEG
+PNG
+WEBP
+
+Validate file size and MIME type.
+
+Use image lazy loading on the public site.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 22. CV DOWNLOAD
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Add:
+
+DOWNLOAD CV
+
+Prepare the Laravel application so the CV can be stored in a controlled public/storage location.
+
+Create a configurable CV path in site settings.
+
+The public portfolio should have a simple CV download button.
+
+Do not expose Ashley's national ID number or unnecessary sensitive information.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 23. SECURITY
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Implement normal Laravel security practices.
+
+* CSRF protection where applicable
+* Request validation
+* Authentication
+* Authorization
+* Password hashing
+* Protected admin routes
+* Environment variables
+* No hardcoded database passwords
+* No exposed secrets
+* No sensitive information in frontend source code
+* Sanitize/validate uploaded files
+* Validate contact form input
+* Rate-limit contact endpoint if appropriate
+
+Never commit `.env`.
+
+Provide `.env.example`.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 24. ENVIRONMENT CONFIGURATION
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create clear configuration for:
+
+Laravel:
+
+APP_NAME
+APP_ENV
+APP_KEY
+APP_URL
+
+Database:
+
+DB_CONNECTION=mysql
+DB_HOST
+DB_PORT
+DB_DATABASE
+DB_USERNAME
+DB_PASSWORD
+
+Frontend:
+
+VITE_API_BASE_URL
+
+The Vue frontend should obtain the Laravel API URL from environment configuration.
+
+Do not hardcode localhost URLs throughout the codebase.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 25. DATA SEEDING
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create Laravel seeders/factories where useful.
+
+Seed only the verified Ashley information.
+
+Include:
+
+* Her documented experiences
+* Education
+* Skills
+* Languages
+* Interests
+* References
+
+For Kempinski:
+
+DO NOT seed fabricated information.
+
+Create an empty/placeholder record or make it easy to add later.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 26. RESPONSIVE DESIGN
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The website must work on:
+
+* Android
+* iPhone
+* Tablet
+* Laptop
+* Desktop
+
+Prioritize mobile.
+
+Recruiters may access the site from:
+
+* WhatsApp
+* Email
+* LinkedIn
+* Job applications
+
+Ensure:
+
+* No horizontal scrolling
+* Proper image cropping
+* Large readable text
+* Touch-friendly controls
+* Fast loading
+* Responsive gallery
+* Responsive navigation
+* Easy contact buttons
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 27. SEO
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Page title:
+
+Ashley Amani Wambura | Pastry & Bakery Professional
+
+Meta description:
+
+"Professional portfolio of Ashley Amani Wambura, a Kenyan pastry and bakery professional with practical hospitality experience in pastry production, baking, dessert presentation, food safety and kitchen operations."
+
+Include:
+
+* Semantic HTML
+* Proper headings
+* Meta description
+* Open Graph metadata
+* Favicon
+* Image alt attributes
+* Clean URLs
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 28. API / FRONTEND COMMUNICATION
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+I specifically want the code to make the communication between Vue and Laravel easy to understand.
+
+Create a centralized Axios configuration.
+
+Example concept:
+
+frontend/
+src/
+├── api/
+│   ├── axios.js
+│   ├── experienceApi.js
+│   ├── galleryApi.js
+│   ├── educationApi.js
+│   └── contactApi.js
+│
+├── components/
+├── views/
+├── router/
+└── assets/
+
+Show clean request flow:
+
+Vue Component
+→ API service
+→ Axios
+→ Laravel route
+→ Controller
+→ Model
+→ MySQL
+→ Controller
+→ JSON response
+→ Axios
+→ Vue state
+→ UI
+
+Avoid putting database/API logic directly inside every component.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 29. CODE QUALITY
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Write clean, readable code.
+
+Use:
+
+* Laravel controllers
+* Form Requests for validation where appropriate
+* Eloquent models
+* API Resources
+* Vue composables where useful
+* Reusable Vue components
+* Centralized Axios configuration
+* Environment variables
+* Meaningful variable names
+
+Do not over-engineer the application.
+
+I am using this project partly to learn Laravel/Vue/MySQL architecture, so code should be understandable to an intermediate/beginner developer studying the project.
+
+Add useful comments only where they genuinely explain architecture or non-obvious logic.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 30. ERROR HANDLING
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Handle:
+
+* API failures
+* Network errors
+* Empty gallery
+* Empty experience
+* Validation errors
+* Contact submission errors
+* Missing images
+* Server errors
+
+The UI should show professional error states rather than blank sections.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 31. PERFORMANCE
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Optimize:
+
+* Images
+* API requests
+* Lazy loading
+* Vue rendering
+* Database queries
+
+Avoid unnecessary API requests.
+
+Use eager loading in Laravel where relationships require it.
+
+Do not load every large image immediately.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 32. ACCESSIBILITY
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Implement:
+
+* Semantic HTML
+* Alt text
+* Keyboard-accessible navigation
+* Focus states
+* Accessible buttons
+* Accessible lightbox
+* Proper form labels
+* Good contrast
+* Screen-reader-friendly structure
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 33. FINAL DESIGN EXPERIENCE
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The final result should feel like:
+
+"A young Kenyan pastry professional presenting herself professionally to serious hospitality employers."
+
+The portfolio should communicate:
+
+PRECISION.
+CRAFT.
+HYGIENE.
+DISCIPLINE.
+CREATIVITY.
+PROFESSIONALISM.
+
+The photography should be the visual star.
+
+Do NOT make it look like a restaurant ordering website.
+
+Do NOT make it look like a developer portfolio.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 34. DEVELOPMENT / TESTING CHECKLIST
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Before considering the project complete, test:
+
+### FRONTEND
+
+* Vue application starts
+* Navigation works
+* Responsive layout works
+* Gallery works
+* Lightbox works
+* Contact form works
+* API loading works
+* Error states work
+
+### BACKEND
+
+* Laravel starts
+* Database connects
+* Migrations work
+* Seeders work
+* API endpoints work
+* Validation works
+* Authentication works
+* Admin routes are protected
+
+### DATABASE
+
+* MySQL connection works
+* Relationships work
+* CRUD operations work
+* No unnecessary duplicated data
+
+### INTEGRATION
+
+Test:
+
+Vue
+↓
+Axios
+↓
+Laravel API
+↓
+Controller
+↓
+Eloquent
+↓
+MySQL
+
+and:
+
+MySQL
+↓
+Eloquent
+↓
+Controller
+↓
+JSON
+↓
+Axios
+↓
+Vue
+↓
+UI
+
+### SECURITY
+
+* `.env` not committed
+* No passwords in source code
+* Admin protected
+* Input validated
+* File uploads validated
+
+### FINAL
+
+* No console errors
+* No Laravel errors
+* No broken images
+* No broken links
+* No fake information
+* No fabricated employment history
+* No exposed ID number
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 35. IMPORTANT IMPLEMENTATION RULE
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+DO NOT simply create a beautiful frontend mockup.
+
+This must be a REAL full-stack application.
+
+I need:
+
+Vue frontend
++
+Laravel backend
++
+MySQL database
++
+REST API
++
+Admin management
++
+Real CRUD
++
+Real contact form persistence
++
+Real image management
+
+The public portfolio should consume its content from Laravel's API rather than having all portfolio information permanently hardcoded into Vue components.
+
+Build the project incrementally and verify that the Laravel API and MySQL database work before moving to advanced frontend polish.
+
+At the end, provide a concise explanation of:
+
+1. Project folder structure
+2. Laravel → MySQL flow
+3. Vue → Laravel API flow
+4. Database tables
+5. API endpoints
+6. How to run the backend
+7. How to run the frontend
+8. Required `.env` variables
+9. How to add a new employer
+10. How to add a new gallery image
+11. How to deploy the application
+
+The final application must be production-ready while remaining easy for a developer learning the Laravel + Vue + MySQL stack to understand.

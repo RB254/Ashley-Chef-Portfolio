@@ -1,10 +1,11 @@
-# [Project name]
+# Ashley Chef Portfolio
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+An image-led professional portfolio for Kenyan pastry and bakery professional Ashley Amani Wambura.
 
 ## Run & Operate
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
+- `pnpm --filter @workspace/api-server run dev` — run the API server
+- `pnpm --filter @workspace/ashley-chef-portfolio run dev` — run the public portfolio
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
@@ -14,6 +15,7 @@ _Replace the heading above with the project's name, and this line with one sente
 ## Stack
 
 - pnpm workspaces, Node.js 24, TypeScript 5.9
+- Public app: React + Vite + TanStack Query
 - API: Express 5
 - DB: PostgreSQL + Drizzle ORM
 - Validation: Zod (`zod/v4`), `drizzle-zod`
@@ -22,23 +24,33 @@ _Replace the heading above with the project's name, and this line with one sente
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/ashley-chef-portfolio/` — public single-page portfolio, gallery assets, CV download
+- `artifacts/api-server/src/routes/portfolio.ts` — public portfolio and contact endpoints
+- `lib/api-spec/openapi.yaml` — API contract source of truth
+- `lib/db/src/schema/portfolio.ts` — portfolio and contact persistence schema
+- `lib/api-client-react/src/generated/` — generated React Query client
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- Portfolio content is served through the API and seeded into PostgreSQL on first API access, keeping the public page data-driven.
+- Gallery binaries live in the frontend's public asset directory for this first build; gallery metadata is persisted in PostgreSQL and returned by the API.
+- References are stored with `is_visible` so future admin controls can hide them without deleting verified records.
+- The public page uses anchor navigation and a single visual narrative to help recruiters scan the profile quickly.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+- Presents Ashley's professional identity, experience, skills, education, languages, interests, references, selected work, and contact details.
+- Uses the supplied photography throughout a responsive gallery with a keyboard-accessible lightbox.
+- Provides a CV download and persists employment/collaboration inquiries through the API.
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+- Keep the portfolio grounded in the supplied CV and avoid fabricated employment history, dish names, achievements, or image descriptions.
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- Run API codegen after changing `lib/api-spec/openapi.yaml` before using updated client or Zod exports.
+- The generated API client uses DOM iterable types; `lib/api-client-react/tsconfig.json` includes `dom.iterable` for its generated fetch helper.
 
 ## Pointers
 

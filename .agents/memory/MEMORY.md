@@ -1,0 +1,1 @@
+- [Generated API client types](api-client-dom-iterable.md) — keep DOM iterable types enabled for Orval's browser fetch helper.

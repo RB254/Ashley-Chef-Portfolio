@@ -3,13 +3,17 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: Public content and inquiry API for Ashley Amani Wambura's professional chef portfolio
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: portfolio
+    description: Public portfolio content
+  - name: contact
+    description: Employment and collaboration inquiries
 paths:
   /healthz:
     get:
@@ -24,6 +28,172 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /profile:
+    get:
+      operationId: getProfile
+      tags: [portfolio]
+      summary: Get the portfolio profile
+      responses:
+        "200":
+          description: Profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Profile"
+  /experiences:
+    get:
+      operationId: getExperiences
+      tags: [portfolio]
+      summary: List visible work experience
+      responses:
+        "200":
+          description: Work experience
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Experience"
+  /education:
+    get:
+      operationId: getEducation
+      tags: [portfolio]
+      summary: List visible education
+      responses:
+        "200":
+          description: Education history
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Education"
+  /skills:
+    get:
+      operationId: getSkills
+      tags: [portfolio]
+      summary: List culinary skill categories
+      responses:
+        "200":
+          description: Skills grouped by category
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SkillCategory"
+  /gallery:
+    get:
+      operationId: getGallery
+      tags: [portfolio]
+      summary: List visible gallery items
+      parameters:
+        - name: category
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Gallery items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GalleryItem"
+  /featured-work:
+    get:
+      operationId: getFeaturedWork
+      tags: [portfolio]
+      summary: List selected culinary work
+      responses:
+        "200":
+          description: Featured gallery items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GalleryItem"
+  /languages:
+    get:
+      operationId: getLanguages
+      tags: [portfolio]
+      summary: List languages
+      responses:
+        "200":
+          description: Languages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Language"
+  /interests:
+    get:
+      operationId: getInterests
+      tags: [portfolio]
+      summary: List interests
+      responses:
+        "200":
+          description: Interests
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Interest"
+  /references:
+    get:
+      operationId: getReferences
+      tags: [portfolio]
+      summary: List enabled professional references
+      responses:
+        "200":
+          description: References
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Reference"
+  /portfolio-summary:
+    get:
+      operationId: getPortfolioSummary
+      tags: [portfolio]
+      summary: Get the small set of portfolio metrics used by the public page
+      responses:
+        "200":
+          description: Portfolio summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PortfolioSummary"
+  /contact:
+    post:
+      operationId: submitContact
+      tags: [contact]
+      summary: Submit an employment or collaboration inquiry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ContactInput"
+      responses:
+        "201":
+          description: Inquiry received
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ContactReceipt"
+        "400":
+          description: Validation failed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationError"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +203,111 @@ components:
           type: string
       required:
         - status
+    Profile:
+      type: object
+      required: [name, title, statement, phone, email, cvUrl]
+      properties:
+        name: { type: string }
+        title: { type: string }
+        statement: { type: string }
+        phone: { type: string }
+        email: { type: string, format: email }
+        location: { type: string }
+        cvUrl: { type: string }
+    Experience:
+      type: object
+      required: [id, company, position, dates, responsibilities]
+      properties:
+        id: { type: integer }
+        company: { type: string }
+        position: { type: string }
+        dates: { type: string }
+        responsibilities:
+          type: array
+          items: { type: string }
+    Education:
+      type: object
+      required: [id, institution, period, qualification]
+      properties:
+        id: { type: integer }
+        institution: { type: string }
+        period: { type: string }
+        qualification: { type: string }
+        field: { type: ["string", "null"] }
+    SkillCategory:
+      type: object
+      required: [id, name, skills]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        skills:
+          type: array
+          items: { type: string }
+    GalleryItem:
+      type: object
+      required: [id, title, category, imageUrl, alt, featured]
+      properties:
+        id: { type: integer }
+        title: { type: string }
+        category: { type: string }
+        description: { type: ["string", "null"] }
+        imageUrl: { type: string }
+        alt: { type: string }
+        featured: { type: boolean }
+    Language:
+      type: object
+      required: [id, language, proficiency]
+      properties:
+        id: { type: integer }
+        language: { type: string }
+        proficiency: { type: string }
+    Interest:
+      type: object
+      required: [id, name]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+    Reference:
+      type: object
+      required: [id, name, position, phone, email]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        position: { type: string }
+        company: { type: ["string", "null"] }
+        phone: { type: string }
+        email: { type: string }
+    PortfolioSummary:
+      type: object
+      required: [experienceCount, educationCount, galleryCount, skillCategoryCount]
+      properties:
+        experienceCount: { type: integer }
+        educationCount: { type: integer }
+        galleryCount: { type: integer }
+        skillCategoryCount: { type: integer }
+    ContactInput:
+      type: object
+      required: [name, email, message]
+      properties:
+        name: { type: string, minLength: 2, maxLength: 120 }
+        email: { type: string, format: email, maxLength: 160 }
+        company: { type: string, maxLength: 160 }
+        opportunity: { type: string, maxLength: 160 }
+        message: { type: string, minLength: 10, maxLength: 3000 }
+    ContactReceipt:
+      type: object
+      required: [success, message]
+      properties:
+        success: { type: boolean }
+        message: { type: string }
+    ValidationError:
+      type: object
+      required: [message]
+      properties:
+        message: { type: string }
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items: { type: string }
 
